@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <div>getter的username的值为:{{ username }}</div>
+    <div class="username">
+      getter的username的值为:{{ username }}
+    </div>
   </div>
 </template>
 <script>
@@ -26,4 +28,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@import "../../style/index";
+.home {
+  width: 100%;
+  height: 100%;
+  .username {
+    color: @primaryColor;
+  }
+}
 </style>
