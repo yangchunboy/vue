@@ -7,11 +7,23 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import api from "@api";
+
 export default {
   computed: {
     ...mapState("home/", ["homeData"])
-  }
-}
+  },
+  created() {
+    api.user
+      .getUserInfo()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
+  methods: {}
+};
 </script>
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

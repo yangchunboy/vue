@@ -3,7 +3,7 @@
  */
 
 // 请求路径
-const requestUrl = "http://localhost:7001";
+const requestUrl = "http://localhost:7001/api";
 
 export default {
   requestUrl
