@@ -15,6 +15,7 @@ module.exports = {
     process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/",
   outputDir: "dist",
   devServer: {
+    port: "8000",
     proxy: {
       // 设置本地调试域名的路径解决跨域问题
       "/api": {

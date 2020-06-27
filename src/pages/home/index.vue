@@ -1,20 +1,25 @@
 <template>
   <div class="home">
+    <HomeComponent />
     <div class="username">
-      getter的username的值为:{{ username }}
+      <span>getter的username的值为:</span>{{ username }}
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import HomeComponent from "./components//HomeCompoent";
 export default {
-  data () {
+  components: {
+    HomeComponent
+  },
+  data() {
     return {};
   },
   computed: {
     ...mapGetters(["username"])
   },
-  created () {
+  created() {
     const userInfo = {
       username: "法外狂徒张三",
       age: 20,
@@ -22,10 +27,8 @@ export default {
     };
     this.$store.commit("INIT_USERINFO", userInfo);
   },
-  methods: {
-
-  }
-}
+  methods: {}
+};
 </script>
 <style lang="less" scoped>
 @import "../../style/index";
