@@ -4,9 +4,10 @@ import Router from "vue-router";
 const Home = () => import("../pages/home/index");
 // demo页
 const Demo = () => import("../pages/demo/index");
+// 报名演讲
+const Speech = () => import("../pages/speech/index");
 
 Vue.use(Router);
-console.log(process.env);
 export default new Router({
   mode: "history",
   routes: [
@@ -18,6 +19,10 @@ export default new Router({
     {
       path: "/demo",
       component: Demo
+    },
+    {
+      path: "/speech",
+      component: Speech
     }
   ]
 });
