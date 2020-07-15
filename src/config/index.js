@@ -3,8 +3,12 @@
  */
 
 // 请求路径
-const requestUrl = "http://localhost:7001/api";
+const requestUrl = "http://192.168.43.181:7001/api";
+
+// php项目请求路径
+const phpRequestUrl = "http://zhizi2.kebuy.store/api";
 
 export default {
-  requestUrl
+  requestUrl,
+  phpRequestUrl
 };

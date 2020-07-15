@@ -18,9 +18,8 @@ module.exports = {
     port: "8000",
     proxy: {
       // 设置本地调试域名的路径解决跨域问题
-      "/api": {
-        target: "<url>",
-        ws: true,
+      "/api/upload/": {
+        target: "http://zhizi2.kebuy.store",
         changeOrigin: true
       },
       "/foo": {

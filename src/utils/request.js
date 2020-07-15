@@ -1,14 +1,15 @@
 import axios from "axios";
-import config from "../config/index";
+// import config from "../config/index";
 
 const instance = axios.create({
-  baseURL: config.requestUrl,
+  // baseURL: config.requestUrl,
   timeout: 5 * 60 * 1000
 });
 
 // Add a request interceptor
 instance.interceptors.request.use(
   function(config) {
+    console.log(config);
     // Do something before request is sent
     return config;
   },
@@ -32,43 +33,53 @@ instance.interceptors.response.use(
   }
 );
 
-const factory = ({ method, url, params = {}, data = {}, hideLoading }) => {
+const factory = ({
+  method,
+  url,
+  params = {},
+  data = {},
+  hideLoading,
+  headers = {}
+}) => {
   return instance.request({
     url,
     method,
-    headers: {},
+    headers: Object.assign({}, headers),
     data,
     params,
     hideLoading
   });
 };
 
-export const get = ({ url, params, hideLoading = false }) => {
+export const get = ({ url, params, hideLoading = false, headers }) => {
   return factory({
     url,
     method: "get",
     params,
-    hideLoading
+    hideLoading,
+    headers
   });
 };
 
-export const post = ({ url, params, data, hideLoading = false }) => {
+export const post = ({ url, params, data, hideLoading = false, headers }) => {
   return factory({
     url,
     method: "post",
     params,
     data,
-    hideLoading
+    hideLoading,
+    headers
   });
 };
 
-export const put = ({ url, params, data, hideLoading = false }) => {
+export const put = ({ url, params, data, hideLoading = false, headers }) => {
   return factory({
     url,
     method: "put",
     params,
     data,
-    hideLoading
+    hideLoading,
+    headers
   });
 };
 
