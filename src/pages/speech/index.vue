@@ -285,7 +285,6 @@ export default {
   .container {
     padding: 0.2rem;
     background: white;
-    border-radius: 0.2rem;
     /deep/ .uploadFile {
       width: 60%;
       height: 0.6rem;
