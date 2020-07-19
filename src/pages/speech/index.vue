@@ -1,103 +1,83 @@
 <template>
   <div class="speech">
-    <div class="title">
-      <h4>“助普杯”红河州“声动红河”朗诵大赛</h4>
-    </div>
-    <div class="container">
-      <Form>
-        <Field
-          v-model="username"
-          required
-          name="姓名"
-          label="姓名"
-          placeholder="请输入姓名"
-        />
-        <Field
-          v-model="idNumber"
-          required
-          name="身份证号"
-          label="身份证号"
-          placeholder="请输入身份证号"
-        />
-        <Field
-          readonly
-          clickable
-          required
-          name="picker"
-          :value="group"
-          label="报名组别"
-          placeholder="点击选择报名组别"
-          @click="showPicker = true"
-        />
-        <Popup v-model="showPicker" position="bottom">
-          <Picker
-            show-toolbar
-            :columns="columns"
-            @confirm="onConfirm"
-            @cancel="showPicker = false"
+    <div class="bg">
+      <div class="container">
+        <img class="startApply" src="../../assets/zhizhi/startApply.png" />
+        <Form>
+          <Field
+            v-model="username"
+            required
+            name="姓名"
+            label="姓名"
+            placeholder="请输入姓名"
           />
-        </Popup>
-        <Field
-          v-model="phone"
-          required
-          name="联系方式"
-          label="联系方式"
-          placeholder="请输入联系方式"
-        />
-        <Field
-          v-model="address"
-          required
-          name="联系地址"
-          label="联系地址"
-          placeholder="请输入联系地址"
-        />
-        <Field
-          v-model="email"
-          required
-          name="邮箱"
-          label="邮箱"
-          placeholder="请输入邮箱"
-        />
-        <!-- <Field name="uploader"
-               label="报名表照片"
-               required>
-          <template #input>
-            <Uploader v-model="signPhoto"
-                      max-count="1"
-                      image-fit="fill"
-                      :after-read="afterSignPhotoRead"
-                      :before-delete="deletePicture('signPhoto')" />
-          </template>
-        </Field> -->
-        <Field name="uploader" label="参赛人照片" required>
-          <template #input>
-            <Uploader
-              v-model="photo"
-              max-count="1"
-              image-fit="fill"
-              :after-read="afterPhotoRead"
-              :before-delete="deletePicture('photo')"
+          <Field
+            v-model="idNumber"
+            required
+            name="身份证号"
+            label="身份证号"
+            placeholder="请输入身份证号"
+          />
+          <Field
+            v-model="phone"
+            required
+            name="联系方式"
+            label="联系方式"
+            placeholder="请输入联系方式"
+          />
+          <Field
+            readonly
+            clickable
+            required
+            name="picker"
+            :value="group"
+            label="报名组别"
+            placeholder="点击选择报名组别"
+            @click="showPicker = true"
+          />
+          <Popup v-model="showPicker" position="bottom">
+            <Picker
+              show-toolbar
+              :columns="columns"
+              @confirm="onConfirm"
+              @cancel="showPicker = false"
             />
-          </template>
-        </Field>
-        <Field name="uploader" label="音频文件" required>
-          <template #input>
-            <div class="uploadFile">
-              点击上传音频<input type="file" @change="audioChange" />
-            </div>
-          </template>
-        </Field>
-        <div class="submit">
-          <Button round block type="info" native-type="submit" @click="submit">
-            提交
-          </Button>
+          </Popup>
+          <Field
+            v-model="address"
+            required
+            name="联系地址"
+            label="联系地址"
+            placeholder="请输入联系地址"
+          />
+          <Field
+            v-model="email"
+            required
+            name="邮箱"
+            label="邮箱"
+            placeholder="请输入邮箱"
+          />
+          <Field
+            v-model="worksName"
+            required
+            name="作品名称"
+            label="作品名称"
+            placeholder="请输入作品名称"
+          />
+        </Form>
+        <div class="introduction">
+          <h2>参赛视频须知：</h2>
+          <p>1、视频开头要求展示作品名称、参赛者姓名、组别和单位（朗诵体现）</p>
+          <p>2、视频高清，不抖动、无噪音，长度不超过4分钟，大小低于500M</p>
+          <p>3、团队参赛，也可个人参赛（团队赛要求5人以上组队）</p>
+          <p>4、朗诵作品内容必须积极向上，题材不限，提倡原创</p>
+          <p>5、视频作品需同期录音，不得后期配音（一经发现，取消比赛资格）</p>
+          <p class="end">
+            参赛视频需发至指定官方邮箱：727840798@qq.com（邮件主题：作品名称+参赛号+组别；抄送18702128125@163.com）
+          </p>
         </div>
-      </Form>
-    </div>
-    <div class="empty"></div>
-    <div class="logo">
-      <img src="../../assets/logo.jpeg" />
-      <div>助普科技</div>
+        <div class="submit" @click="submit">提交</div>
+      </div>
     </div>
     <div class="loading" v-show="showLoading">
       <Loading color="#1989fa" />
@@ -105,25 +85,14 @@
   </div>
 </template>
 <script>
-import {
-  Form,
-  Field,
-  Uploader,
-  Picker,
-  Popup,
-  Button,
-  Toast,
-  Loading
-} from "vant";
+import { Form, Field, Picker, Popup, Toast, Loading } from "vant";
 import api from "@api";
 export default {
   components: {
     Form,
     Field,
-    Uploader,
     Picker,
     Popup,
-    Button,
     Loading
   },
   data() {
@@ -136,9 +105,7 @@ export default {
       email: "",
       idNumber: "",
       columns: ["少儿组", "青年组", "成人组"],
-      photo: [],
-      photoUrl: "",
-      audioUrl: "",
+      worksName: "",
       showLoading: false
     };
   },
@@ -155,30 +122,27 @@ export default {
         address,
         email,
         idNumber,
-        // signPhotoUrl,
-        photoUrl,
-        audioUrl
+        worksName
       } = this;
       if (
         !username.trim() ||
         !phone.trim() ||
         !group ||
-        !address ||
+        !address.trim() ||
         !idNumber.trim() ||
-        !email ||
-        !photoUrl ||
-        !audioUrl
+        !email.trim() ||
+        !worksName.trim()
       ) {
         Toast("请将必填信息填写完整");
         return false;
       }
-      if (!/^1[3456789]\d{9}$/.test(phone)) {
+      if (!/^1[3456789]\d{9}$/.test(phone.trim())) {
         Toast("请输入正确的手机号码");
         return false;
       }
       if (
         !/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/.test(
-          email
+          email.trim()
         )
       ) {
         Toast("请输入正确的邮箱");
@@ -196,19 +160,18 @@ export default {
           address,
           email,
           idNumber,
-          photoUrl,
-          audioUrl
+          worksName
         } = this;
         const params = {
-          username,
-          phone,
+          username: username.trim(),
+          phone: phone.trim(),
           group,
-          address,
-          email,
-          idNumber,
-          photoUrl,
-          audioUrl
+          address: address.trim(),
+          email: email.trim(),
+          idNumber: idNumber.trim(),
+          worksName: worksName.trim()
         };
+        console.log(params);
         // 获取到所有数据后插入数据库
         // api.speech.insertSpeech(params).then((res) => {
         //   console.log(res);
@@ -234,31 +197,6 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    },
-    deletePicture() {
-      this.photoUrl = "";
-    },
-    // afterSignPhotoRead (e) {
-    //   const file = e.file;
-    //   this.generateFormData(file, (url) => {
-    //     this.photoUrl = url;
-    //   })
-    // },
-    audioChange(e) {
-      const file = e.target.files[0];
-      this.generateFormData(file, url => {
-        this.audioUrl = url;
-      });
-    },
-    afterPhotoRead(e) {
-      const file = e.file;
-      e.status = "uploading";
-      e.message = "上传中...";
-
-      this.generateFormData(file, url => {
-        this.photoUrl = url;
-        e.status = "done";
-      });
     }
   }
 };
@@ -268,61 +206,54 @@ export default {
 .speech {
   width: 100%;
   height: 100%;
-  // overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   // display: flex;
   // justify-content: center;
-  // align-items: center;
-  background: @bgColor;
-  .title {
+  .bg {
     width: 100%;
-    height: 1rem;
-    font-size: 0.3rem;
-    text-align: center;
-    line-height: 1rem;
-    background: white;
-    margin-bottom: 0.2rem;
-  }
-  .container {
-    padding: 0.2rem;
-    background: white;
-    /deep/ .uploadFile {
-      width: 60%;
-      height: 0.6rem;
-      text-align: center;
-      line-height: 0.6rem;
-      border: 1px solid #1989fa;
-      input {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        opacity: 0;
+    min-height: 100%;
+    background-image: url(http://school-admin.oss-cn-beijing.aliyuncs.com/file/20200718/be82eb4d5cf9c85ef947bd60dad5a101.png);
+    background-size: 100%;
+    border: 1px solid transparent;
+    .container {
+      margin: 4rem auto 0 auto;
+      width: 80%;
+      .startApply {
+        width: 3rem;
+        vertical-align: bottom;
       }
-    }
-    .submit {
-      width: 50%;
-      margin: 0.16rem auto;
-    }
-  }
-  .empty {
-    width: 100%;
-    height: 1.7rem;
-  }
-  .logo {
-    width: 100%;
-    height: 1.5rem;
-    background: white;
-    position: fixed;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    img {
-      width: 1rem;
-      height: 1rem;
-      margin-bottom: 0.1rem;
+      .van-form {
+        padding: 0 0.2rem;
+        background: white;
+        border-bottom-left-radius: 0.2rem;
+        border-bottom-right-radius: 0.2rem;
+        border-top-right-radius: 0.2rem;
+      }
+      .introduction {
+        background: white;
+        border-radius: 0.2rem;
+        margin-top: 0.5rem;
+        padding: 0.5rem 0.2rem;
+        line-height: 0.35rem;
+        h2 {
+          margin-bottom: 0.2rem;
+        }
+        .end {
+          margin-top: 0.2rem;
+        }
+      }
+      .submit {
+        width: 70%;
+        background-image: url(../../assets/zhizhi/submit.png);
+        height: 0.8rem;
+        background-size: 100% 100%;
+        color: white;
+        text-align: center;
+        line-height: 0.8rem;
+        font-size: 0.3rem;
+        margin: 1rem auto;
+      }
     }
   }
   .loading {
