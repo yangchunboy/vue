@@ -208,6 +208,8 @@ export default {
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   // display: flex;
   // justify-content: center;
   .bg {
