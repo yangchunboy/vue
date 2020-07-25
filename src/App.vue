@@ -1,11 +1,17 @@
 <template>
   <div id="app">
     <router-view />
+    <Loading v-show="showLoading" />
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+import Loading from "./components/Loading/Loading";
 export default {
-  components: {}
+  components: { Loading },
+  computed: {
+    ...mapState(["showLoading"])
+  }
 };
 </script>
 <style lang="less">

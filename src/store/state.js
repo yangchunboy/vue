@@ -1,4 +1,6 @@
 export default {
   userId: "",
-  userInfo: {}
+  userInfo: {},
+  showLoading: false,
+  showAlert: false
 };
